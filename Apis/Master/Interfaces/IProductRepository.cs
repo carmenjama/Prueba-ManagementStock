@@ -15,5 +15,6 @@ namespace ManagementProducts.Master.Interfaces
         IProductTableRow GetById(long id);
         IEnumerable<IProductTableRow> GetAll(ProductDto dto, out int totalRows);
         void Delete(long id, string status, string modifiedBy, string modifiedHost);
+        void UpdateStock(long id);
     }
 }

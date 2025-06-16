@@ -56,6 +56,16 @@ function InvoicesTableItem(props) {
           </button>
         </div>
       </td>
+      <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
+        <div className="space-x-1">
+          <button disabled={props.status == 'INACTIVO' ? true : false} className={props.status == 'INACTIVO' ? "text-gray-500 hover:text-gray-600 rounded-full" : "text-green-500 hover:text-green-600 rounded-full"} onClick={() => props.handleSaleClick(props.id)}>
+            Vender
+          </button>
+          <button disabled={props.status == 'INACTIVO' ? true : false} className={props.status == 'INACTIVO' ? "text-gray-500 hover:text-gray-600 rounded-full" : "text-black-500 hover:text-black-600 rounded-full"} onClick={() => props.handleBuyClick(props.id)}>
+            Comprar
+          </button>
+        </div>
+      </td>
     </tr>
   );
 }

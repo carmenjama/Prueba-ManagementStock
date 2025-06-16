@@ -32,6 +32,7 @@ namespace ManagementProducts.Use.Cases.Product.Commands
             try
             {
                 _productRepository.Delete(id, TypeState.Inactive.GetEnumDescription(), modifiedBy, Environment.MachineName);
+                _productRepository.UpdateStock(id);
                 return "Registro eliminado";
             }
             catch (Exception ex)

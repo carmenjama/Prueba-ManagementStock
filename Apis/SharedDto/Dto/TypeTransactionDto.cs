@@ -1,8 +1,8 @@
 ﻿namespace ManagementProducts.SharedDto.Dto
 {
-    public class CategoryDto : AuditDto
+    public class TypeTransactionDto : AuditDto
     {
-        public long Id { get; set; } = 0;
+        public int Id { get; set; } = 0;
         public string Name { get; set; } = string.Empty;
     }
 }

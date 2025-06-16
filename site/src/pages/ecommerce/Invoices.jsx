@@ -113,10 +113,28 @@ function Invoices() {
           
         }
        })
-      : null ;
+      : ()=>{
+       save(null) 
+      } ;
       setRefreshInvoices(prev => !prev);
       setFeedbackModalOpen(false);
   };
+
+  const save = () => {
+    const response = fetch(getUrl('product'), {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': getToken()
+            },
+            body: JSON.stringify({...data, multimedia: null})
+          });
+          if (!response.ok) {
+            throw new Error('Error al cargar las facturas');
+          }
+          setRefreshInvoices(prev => !prev);
+          setFeedbackModalOpen(false);
+  }
 
   const fileToBase64 = (file) => {
     return new Promise((resolve, reject) => {

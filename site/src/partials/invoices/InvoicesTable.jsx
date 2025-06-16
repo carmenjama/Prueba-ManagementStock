@@ -4,6 +4,7 @@ import PaginationClassic from '../../components/PaginationClassic';
 import { getToken } from '../../utils/Auth';
 import { getUrl } from '../../utils/Auth';
 import ModalBasic from "../../components/ModalBasic";
+import SaleModal from "../../partials/invoices/SaleModal";
 
 function InvoicesTable({ refresh }) {
   const [loading, setLoading] = useState(true);  // Para manejar el estado de carga
@@ -12,6 +13,8 @@ function InvoicesTable({ refresh }) {
   const [list, setList] = useState([]);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [productToEdit, setProductToEdit] = useState(null);
+  const [saleModalOpen, setSaleModalOpen] = useState(false);
+  const [selectedProductId, setSelectedProductId] = useState(null);
   const [page, SetPage] = useState({
     currentPage : 1,
     limit: 2
@@ -209,6 +212,39 @@ function InvoicesTable({ refresh }) {
       }
   };
 
+  const handleSaleClick = id => {
+    try {
+        setSelectedProductId(id);
+        setSaleModalOpen(true);
+        console.log("id", id, saleModalOpen)
+      } catch (err) {
+        setError(err.message); 
+      }
+  };
+
+  const handleSaleSuccess = () => {
+    // setSaleModalOpen(false);
+    // setSelectedProductId(null);
+    refresh();
+  };
+
+  const handleBuyClick = id => {
+    try {
+        // const response = fetch(getUrl("product/"+id), {
+        //   method: 'DELETE',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //     'Authorization':  getToken()
+        //   },
+        // });
+        // if (!response.ok) {
+          
+        // }
+      } catch (err) {
+        setError(err.message); 
+      }
+  };
+
   const handlePageChange = (direction) => {
     SetPage(prevPage => {
       let newPage = prevPage.currentPage;
@@ -283,6 +319,8 @@ function InvoicesTable({ refresh }) {
                       hasmultimedia={product.hasMultimedia}
                       status={product.status}
                       handleDeleteClick={handleDeleteClick}
+                      handleSaleClick={handleSaleClick}
+                      handleBuyClick={handleBuyClick}
                       handleEditClick={() => handleEditClick(product)}
                     />
                   )
@@ -290,8 +328,23 @@ function InvoicesTable({ refresh }) {
               }
             </tbody>
           </table>
-        </div>
-              <ModalBasic id="edit-product" modalOpen={editModalOpen} setModalOpen={setEditModalOpen} title="Editar Producto">
+        </div>  
+      </div>
+      
+      {/* Pagination */}
+      <div className="mt-8">
+        <PaginationClassic page={page} handlePageChange={handlePageChange} />
+      </div>
+      <div>
+        <SaleModal
+                modalOpen={saleModalOpen}
+                setModalOpen={setSaleModalOpen}
+                productId={selectedProductId}
+                onSaleSuccess={handleSaleSuccess}
+              />
+      </div>
+      <div>
+        <ModalBasic id="edit-product" modalOpen={editModalOpen} setModalOpen={setEditModalOpen} title="Editar Producto">
                 <div className="px-5 py-4">
                     <div className="space-y-3">
                       {/* Categoría*/}
@@ -381,11 +434,6 @@ function InvoicesTable({ refresh }) {
                     </div>
                   </div>
               </ModalBasic>
-      </div>
-      
-      {/* Pagination */}
-      <div className="mt-8">
-        <PaginationClassic page={page} handlePageChange={handlePageChange} />
       </div>
     </div>
   );

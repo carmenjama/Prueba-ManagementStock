@@ -64,6 +64,7 @@ namespace ManagementProducts.Use.Cases.Product.Commands
                     data.Extension = multimedia.type;
                 }
                 _productRepository.Update(data.UpdateAudit(modifiedBy));
+                _productRepository.UpdateStock(data.Id);
                 return "Registro actualizado";
             }
             catch (Exception ex)

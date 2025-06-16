@@ -1,10 +1,12 @@
-﻿using ManagementProducts.Api.Controllers.Responses;
+﻿using Azure.Core;
+using ManagementProducts.Api.Controllers.Responses;
 using ManagementProducts.Api.Core.Contexts;
 using ManagementProducts.Api.Core.Shared;
 using ManagementProducts.SharedDto.Dto;
 using ManagementProducts.Use.Cases.Aurh.Interfaces;
 using ManagementProducts.Use.Cases.Category.Interfaces;
 using ManagementProducts.Use.Cases.Shared;
+using ManagementProducts.Use.Cases.TypeTransactions.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
@@ -12,14 +14,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ManagementProducts.Api.Controllers
 {
-    public partial class CategoryController
+    public partial class TypeTransactionController
     {
         [HttpGet]
         [Authorize]
         [Route("{isPaginated}")]
-        [ProducesResponseType(typeof(PaginatedDto<CategoryResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PaginatedDto<TypeTransactionResponsse>), StatusCodes.Status200OK)]
         public IActionResult GetAll(
-            [FromServices] IGetAllCategory useCase,
+            [FromServices] ITypeTransactionsGetAll useCase,
             [FromServices] IDecodeToken decodeToken,
             [FromRoute][Required] bool isPaginated,
             [FromQuery] int page = 0,
@@ -41,7 +43,7 @@ namespace ManagementProducts.Api.Controllers
 
             var result = useCase
                 .WithContext(ApplicationContext.SqlServerDbContext)
-                .Execute(new CategoryDto
+                .Execute(new TypeTransactionDto
                 {
                     Status = "ACTIVO",
                     IsPaginated = isPaginated,
@@ -56,7 +58,7 @@ namespace ManagementProducts.Api.Controllers
                 return BadRequest();
             }
 
-            var items = Mapper.Map<IEnumerable<CategoryResponse>>(result.Payload()?.Elements);
+            var items = Mapper.Map<IEnumerable<TypeTransactionResponsse>>(result.Payload()?.Elements);
             if (!isPaginated)
                 return Ok(items);
 

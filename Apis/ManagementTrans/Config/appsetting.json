@@ -1,0 +1,21 @@
+{
+  "Application": {
+    "Name": "ManagementProducts Api",
+    "Code": "management-products",
+    "Version": "1.0",
+    "IsProduction": true
+  },
+  "SqlServerContext": {
+    "ConnectionString": "Data Source=[__[SQL_SERVER_NAME]__];Initial Catalog=ManagementStock;User ID=[__[SQL_DB_USER]__]; password=[__[SQL_DB_PASS]__]; integrated security=False;MultipleActiveResultSets=True;App=EntityFramework; Encrypt=False"
+  },
+  "ApiSettings": {
+    "ThreadsSettings": {
+      "CompletionPorts": 8,
+      "Workers": 8
+    },
+    "TokenSettings": {
+      "RefreshTokenExpirationTimeInMinutes": 360,
+      "AccessTokenExpirationTimeInMinutes": 240
+    }
+  }
+}
