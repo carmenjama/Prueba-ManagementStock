@@ -5,9 +5,9 @@ namespace ManagementProducts.Api.Controllers.Payload
 {
     public class UserPayload
     {
-        [Required, DefaultValue("admin")]
+        [Required]
         public string User { get; set; } = string.Empty;
-        [Required, DefaultValue("16073a5bbae5f899b3f55b4e533e156a")]
+        [Required]
         public string Pass { get; set; } = string.Empty;
     }
 }
