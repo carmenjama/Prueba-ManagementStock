@@ -73,19 +73,17 @@ namespace ManagementProducts.Api
             services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
             // Registers required services for health checks
             services.AddHealthChecks();
             //Set swagger options configuration
             services.ConfigureOptions<ConfigureSwaggerOptionsHandler>();
             //Adds AutoMapper dependency inyection 
             services
-              .AddAutoMapper(typeof(AutoMapperSettings).Assembly)
-              .AddSwaggerGen(config =>
-              {
-                  config.UseInlineDefinitionsForEnums();
-              })
-              .AddSwaggerGen();
+            .AddAutoMapper(typeof(AutoMapperSettings).Assembly)
+            .AddSwaggerGen(config =>
+            {
+                config.UseInlineDefinitionsForEnums();
+            });
 
             //Validates development enviroment to authorization control
             if (ApplicationContext.IsProduction)
@@ -138,7 +136,6 @@ namespace ManagementProducts.Api
 
             if (!ApplicationContext.IsProduction)
             {
-                //Enables middleware to server generated swagger as a JSON endpoint
                 app.UseSwagger(options => { options.RouteTemplate = "docs/{documentName}/docs.json"; });
                 app.UseSwaggerUI(options =>
                 {

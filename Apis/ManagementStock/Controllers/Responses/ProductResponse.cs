@@ -10,6 +10,7 @@
         public decimal Price { get; set; } = 0;
         public string Unit { get; set; } = string.Empty;
         public decimal Stock { get; set; } = 0;
+        public string Status { get; set; } = string.Empty;
         public string? Note { get; set; } = null;
         public bool HasMultimedia { get; set; } = false;
     }

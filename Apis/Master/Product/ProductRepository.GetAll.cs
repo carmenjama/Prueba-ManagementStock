@@ -87,7 +87,7 @@ namespace ManagementProducts.Master.Product
               FROM [dbo].[Product] P
               inner join [dbo].[Category] C on C.Id=P.CategoryId
               {conditions}
-              ORDER BY P.[CreatedDate]";
+              ORDER BY P.[Status] asc, P.[CreatedDate] desc";
 
             var result = this.GetAll<ProductTableRow>(query, parameters);
             totalRows = this.TotalRows;

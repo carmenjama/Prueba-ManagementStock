@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
 import Sidebar from '../../partials/Sidebar';
 import Header from '../../partials/Header';
 import SearchForm from '../../partials/actions/SearchForm';
 import InvoicesTable from '../../partials/invoices/InvoicesTable';
 import ModalBasic from "../../components/ModalBasic";
+import { getUrl } from '../../utils/Auth';
+import { getToken } from '../../utils/Auth';
 
 function Invoices() {
-
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [selectedItems, setSelectedItems] = useState([]);
   const [basicModalOpen, setBasicModalOpen] = useState(false);
   const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
   const [files, setFiles] = useState([]);
+  const [categories, setCategory] = useState([]);
+  const [refreshInvoices, setRefreshInvoices] = useState(false);
   const [data, setData] = useState({
     categoryId: 0,
     code : "",
@@ -23,9 +24,39 @@ function Invoices() {
     multimedia : ""
   });
 
+  useEffect(() => {
+    const fetCategory = async () => {
+      try {
+        const response = await fetch(getUrl('category/false'), {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': getToken()
+          }
+        });
+        if (!response.ok) {
+          throw new Error('Error al cargar las categorías');
+        }
+        const data = await response.json();
+        setCategory([...data]);
+      } catch (err) {
+        
+      }
+    };
+
+    fetCategory();
+  }, []); 
+  
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     switch (id) {
+      case 'category':
+        setData({
+          ...data,
+          categoryId: value
+        });
+        break;
       case 'code':
         setData({
           ...data,
@@ -62,23 +93,38 @@ function Invoices() {
   };
 
   const handleSaveProduct = () => {
-    let token  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImFkbWluIiwibmFtZWlkIjoiNjIzNWEyMDEtMDQzYi00MTJhLTgyMWQtMDkyODNhNDA5ZmE3IiwiZ3JvdXBzaWQiOiJtYW5hZ2VtZW50LXByb2R1Y3RzLWRldmVsb3BtZW50IiwibmJmIjoxNzQ5NjIzOTk5LCJleHAiOjE3NDk2MjU3OTksImlhdCI6MTc0OTYyMzk5OSwiaXNzIjoiTWFuYWdlbWVudFByb2R1Y3RzQXBpIiwiYXVkIjoiTWFuYWdlbWVudFByb2R1Y3RzQXBpIn0.Yr3tocD6q__krnIB4J55CXMKbQoVdBV5fo24XIP1M5U";
-    try {
-        const response = fetch('https://localhost:7127/product', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}` // Aquí se agrega el token en el header
-          },
-          body: JSON.stringify({...data, categoryId: 1})
-        });
-        if (!response.ok) {
-          throw new Error('Error al cargar las facturas');
+    const base64File = files[0]
+      ? fileToBase64(files[0]).then(base64 => {
+        try {
+          const response = fetch(getUrl('product'), {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': getToken()
+            },
+            body: JSON.stringify({...data, multimedia: base64})
+          });
+          if (!response.ok) {
+            throw new Error('Error al cargar las facturas');
+          }
+          setRefreshInvoices(prev => !prev);
+          setFeedbackModalOpen(false);
+        } catch (err) {
+          
         }
-        setFeedbackModalOpen(true);
-      } catch (err) {
-        setError(err.message); 
-      }
+       })
+      : null ;
+      setRefreshInvoices(prev => !prev);
+      setFeedbackModalOpen(false);
+  };
+
+  const fileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result); // Base64 result
+      reader.onerror = (error) => reject(error);
+    });
   };
 
   const handleFileChange = (e) => {
@@ -93,10 +139,6 @@ function Invoices() {
 
   const handleCloseModal = () => {
     setModalOpen(false);
-  };
-
-  const handleSelectedItems = (selectedItems) => {
-    setSelectedItems([...selectedItems]);
   };
 
   return (
@@ -143,6 +185,23 @@ function Invoices() {
                   setModalOpen={setFeedbackModalOpen} title="Agregar producto">
                   <div className="px-5 py-4">
                     <div className="space-y-3">
+                      {/* Categoría*/}
+                      <div>
+                        <label className="block text-sm font-medium mb-1" htmlFor="category">Categoría <span className="text-red-500">*</span></label>
+                        <select
+                          id="category"
+                          name="category"
+                          className="form-select w-full px-2 py-1"
+                          value={data.categoryId || 0}
+                          onChange={handleChange}
+                          required
+                        >
+                          <option key="0" value="">Seleccione categoría</option>
+                          {categories.map((cat) => (
+                            <option key={cat.id} value={cat.id}>{cat.name}</option>
+                          ))}
+                        </select>
+                      </div>
                       <div>
                         <label className="block text-sm font-medium mb-1" htmlFor="code">Código <span className="text-red-500">*</span></label>
                         <input id="code" className="form-input w-full px-2 py-1" type="text" value={data.code} onChange={handleChange} required />
@@ -217,45 +276,8 @@ function Invoices() {
             </div>
 
             {/* Table */}
-            <InvoicesTable selectedItems={handleSelectedItems} />
+            <InvoicesTable refresh={refreshInvoices} setRefresh={setRefreshInvoices}/>
 
-            {/* SuccessMod */}
-            <ModalBasic id="basic-modal" modalOpen={basicModalOpen} setModalOpen={setBasicModalOpen} title="Basic Modal">
-
-              {/* Modal content */}
-              <div className="px-5 pt-4 pb-1">
-                <div className="text-sm">
-                  <div className="font-medium text-gray-800 dark:text-gray-100 mb-2">Let’s Talk Paragraph</div>
-                  <div className="space-y-2">
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
-                    </p>
-                    <p>
-                      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                      occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Modal footer */}
-              <div className="px-5 py-4">
-                <div className="flex flex-wrap justify-end space-x-2">
-                  <button
-                    className="btn-sm border-gray-200 dark:border-gray-700/60 hover:border-gray-300 dark:hover:border-gray-600 text-gray-800 dark:text-gray-300"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setBasicModalOpen(false);
-                    }}
-                  >
-                    Close
-                  </button>
-                  <button className="btn-sm bg-gray-900 text-gray-100 hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-800 dark:hover:bg-white">I Understand</button>
-                </div>
-              </div>
-            </ModalBasic>
-            
           </div>
         </main>
       </div>

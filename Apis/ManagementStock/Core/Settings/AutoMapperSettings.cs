@@ -11,6 +11,7 @@ namespace ManagementProducts.Api.Core.Settings
         {
             CreateMap<ProductPayload, ProductDto>().ReverseMap();
             CreateMap<ProductResponse, ProductDto>().ReverseMap();
+            CreateMap<CategoryResponse, CategoryDto>().ReverseMap();
         }
     }
 }

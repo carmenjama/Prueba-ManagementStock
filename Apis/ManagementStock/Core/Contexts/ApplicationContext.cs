@@ -21,7 +21,6 @@ namespace ManagementProducts.Api.Core.Contexts
         public static string Version { get; set; } = AppSettings?.GetSection("ApiSettings:Application:Version")?.Get<string>() ?? string.Empty;
         public static bool IsProduction => AppSettings.GetValue<bool>("Application:IsProduction");
         public static ThreadsSettings ThreadsSettings => AppSettings.GetSection("ApiSettings:ThreadsSettings").Get<ThreadsSettings>();
-        public static LoggingServiceContext LoggingServiceContext => AppSettings.GetSection("LoggingServiceContext").Get<LoggingServiceContext>();
         public static SqlServerDbContext SqlServerDbContext => AppSettings.GetSection("SqlServerContext").Get<SqlServerDbContext>();
         public static JwtTokenContext JwtToken => AppSettings.GetSection("JwtToken").Get<JwtTokenContext>();
         public static IConfigurationSection IpRateLimitOptions => AppSettings.GetSection(":AspNetCoreRateLimit:IpRateLimiting");
