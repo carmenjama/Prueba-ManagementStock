@@ -489,3 +489,4 @@ $RECYCLE.BIN/
 /TravelFlowApi/Api/Config/appsettings.Development.json
 /TravelFlowApi/Api/Config/appsetting.development.json
 Apis/ManagementStock/Config/appsetting.development.json
+/Apis/ManagementTrans/Config/appsetting.development.json
