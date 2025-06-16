@@ -17,5 +17,14 @@
       "RefreshTokenExpirationTimeInMinutes": 360,
       "AccessTokenExpirationTimeInMinutes": 240
     }
+  },
+  "JwtToken": {
+    "Key": "[__[JWT_KEY]__]",
+    "AudienceToken": "[__[JWT_AUDIENCE]__]",
+    "IsUserToken": "[__[JWT_USER_TOKEN]__]",
+    "ExpireMinutes": 90,
+    "Expire": true,
+    "UserName": "[__[JWT_USERNAME]__]",
+    "Pass": "[__[JWT_PASS]__]"
   }
 }
