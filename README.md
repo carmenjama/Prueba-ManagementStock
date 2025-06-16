@@ -1,2 +1,7 @@
 # PB-Prueba-ManagementProducts
-Prueba técnica
+#Prueba técnica
+#La carpeta SITE contiene el front, version Node 21.7.3 (revisar archivo README.md para configuraciones)
+#La carpeta Apis contiene el back, .NET 8 (revisar archivo Config/appsetting.development )
+
+
+
