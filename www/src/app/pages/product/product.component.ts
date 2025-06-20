@@ -7,7 +7,6 @@ declare interface TableData {
 
 @Component({
     selector: 'product-cmp',
-    moduleId: module.id,
     templateUrl: 'product.component.html'
 })
 
