@@ -421,6 +421,7 @@ autom4te.cache/
 *.tar.gz
 tarballs/
 test-results/
+.angular/cache/
 
 # Mac bundle stuff
 *.dmg
@@ -482,11 +483,4 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
-/EGroundApi/Api/Config/appsetting.development.json
-/TravelFlowApi/Api/Config/appsetting.development.json
-/Seminuevos/Api/Config/appsetting.development.json
-/TravelFlowApi/Api/appsettings.Development.json
-/TravelFlowApi/Api/Config/appsettings.Development.json
-/TravelFlowApi/Api/Config/appsetting.development.json
-Apis/ManagementStock/Config/appsetting.development.json
-/Apis/ManagementTrans/Config/appsetting.development.json
+/www/.angular

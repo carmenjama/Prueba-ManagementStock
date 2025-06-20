@@ -1,0 +1,30 @@
+﻿{
+  "Application": {
+    "Name": "ManagementProducts Api Development",
+    "Code": "management-products-develipment",
+    "Version": "v1",
+    "IsProduction": false
+  },
+  "SqlServerContext": {
+    "ConnectionString": "Data Source=IPS162\\SQLEXPRESS;Initial Catalog=ManagementStock;User ID=admin; password=12345; integrated security=False;MultipleActiveResultSets=True;App=EntityFramework; Encrypt=False"
+  },
+  "ApiSettings": {
+    "ThreadsSettings": {
+      "CompletionPorts": 8,
+      "Workers": 8
+    },
+    "TokenSettings": {
+      "RefreshTokenExpirationTimeInMinutes": 360,
+      "AccessTokenExpirationTimeInMinutes": 240
+    }
+  },
+  "JwtToken": {
+    "Key": "e34ef580f7d9df132e93464365bb0e5a",
+    "AudienceToken": "ManagementProducts Api Development",
+    "IsUserToken": "ManagementProducts Api Development",
+    "ExpireMinutes": 90,
+    "Expire": true,
+    "UserName": "admin",
+    "Pass": "16073a5bbae5f899b3f55b4e533e156a"
+  }
+}
