@@ -15,7 +15,7 @@ namespace ManagementProducts.Api.Controllers
     public partial class CategoryController
     {
         [HttpGet]
-        [Authorize]
+        [AllowAnonymous]
         [Route("{isPaginated}")]
         [ProducesResponseType(typeof(PaginatedDto<CategoryResponse>), StatusCodes.Status200OK)]
         public IActionResult GetAll(

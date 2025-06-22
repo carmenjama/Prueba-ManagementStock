@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ManagementProducts.Api.Controllers
+namespace ManagementAuth.Api.Controllers
 {
     [Produces("application/json")]
     [ApiController]

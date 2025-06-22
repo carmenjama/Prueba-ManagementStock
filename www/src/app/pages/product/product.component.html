@@ -1,18 +1,169 @@
 <div class="row">
   <div class="col-md-12">
     <div class="card">
-      <div class="card-header">
-        <h4 class="card-title">Lista productos</h4>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-3">
-            <button type="submit" class="btn btn-primary btn-round">Agregar producto</button>
-          </div>
+        <div class="card-header">
+            <h4 class="card-title">Lista productos</h4>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="itemForm" (ngSubmit)="getProducts()">
+            <div class="row">
+                <div class="col-md-3">
+                <div class="form-group">
+                    <label>Categoría</label>
+                    <select name="category" class="form-control" formControlName="categoryid">
+                        <option *ngFor="let item of categories" [value]="item.id">{{ item.name }}</option>
+                    </select>
+                </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                    <label>Código</label>
+                    <input type="text" class="form-control" placeholder="Código" 
+                    formControlName="code"
+                    maxlength=40
+                    pattern="^[A-Za-z0-9\-]+$"
+                    (keypress)="onKeyPressCodigo($event)">
+                </div>
+                </div>
+                <div class="col-md-6 px-1">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" placeholder="Nombre"
+                    formControlName="name"
+                    maxlength=100
+                    pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\- ]+$"
+                    (keypress)="onKeyPressName($event)">
+                </div>
+                </div>
+                <div class="col-md-3 px-1">
+                <div class="form-group">
+                    <label>Estado</label>
+                    <select name="category" class="form-control" formControlName="status">
+                        <option *ngFor="let item of status" [value]="item.id">{{ item.name }}</option>
+                    </select>
+                </div>
+                </div>
+                <div class="col-md-3 pr-1">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6 pr-1">
+                            <label>Rango precios</label>
+                            <input type="number" class="form-control" placeholder="Min" formControlName="minprice">
+                        </div>
+                        <div class="col-md-6 pr-1">
+                            <label></label>
+                            <input type="number" class="form-control" placeholder="Max" formControlName="maxprice">
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-3 pr-1">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6 pr-1">
+                            <label>Rango stock</label>
+                            <input type="number" class="form-control" placeholder="Min" formControlName="minstock">
+                        </div>
+                        <div class="col-md-6 pr-1">
+                            <label></label>
+                            <input type="number" class="form-control" placeholder="Max" formControlName="maxstock">
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-secondary btn-round  col-md-12">Buscar</button>
+                </div>
+            </div>
+            </form>
         </div>
     </div>
-    <div class="card-body">
-        <ngx-datatable></ngx-datatable>
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-9"></div>
+          <div class="col-md-3">
+            <button type="submit" class="btn btn-secondary btn-round col-md-12">Agregar producto</button>
+          </div>
+        </div>
+        <ngx-datatable 
+          #table 
+          [messages]="{emptyMessage: 'No existen registros', totalMessage: 'Total de registros'}" 
+          class="material striped css-data-table-01" 
+          [rows]="products?.elements" 
+          [columnMode]="'force'"
+          [headerHeight]="50" 
+          [footerHeight]="50" 
+          [rowHeight]="50" 
+          [scrollbarH]="true" 
+          [count]="products?.total"
+          [limit]="products?.limit" 
+          [offset]="products?.pageNumber - 1" 
+          (page)="setPage($event)"
+          [selectionType]="SelectionType.single"
+          [externalPaging]="products?.isPager">
+
+          <ngx-datatable-column name="Código" [width]="50">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                  <p class="css-p-table">{{ row?.code || "SIN DATOS" }}</p>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Nombre" [width]="150">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                  <p class="css-p-table">{{ row?.name || "SIN DATOS" }}</p>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Categoría" [width]="100">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                  <p class="css-p-table">{{ row?.categoryName || "SIN DATOS" }}</p>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Precio" [width]="100">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                  <p class="css-p-table text-center">{{ (row?.price | currency)}}</p>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Stock" [width]="100">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                  <p class="css-p-table text-center">{{ row?.stock }}</p>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Unidad" [width]="50">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                  <p class="css-p-table">{{ row?.unit || "SIN DATOS" }}</p>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Estado" [width]="100">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                  <p class="css-p-table">{{ row?.status || "SIN DATOS" }}</p>
+              </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Acciones" [flexGrow]="1" [width]="200">
+              <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                  <div class="botones-tabla">
+                    <button type="button" *ngIf="row?.status=='ACTIVO'" 
+                        class="btn btn-icon btn-outline-secondary"
+                        placement="top" ngbTooltip="Ver imágen"
+                         (click)="openFile()">
+                        <i class="fa fa-picture-o"></i>
+                    </button>
+                    <button type="button" *ngIf="row?.status=='ACTIVO'" 
+                        class="btn btn-success btn-round"
+                        (click)="editProduct(row)">Editar
+                    </button>
+                    <button type="button" *ngIf="row?.status=='ACTIVO'"
+                        class="btn btn-warning btn-round"
+                        (click)="deleteProduct(row)">Eliminar
+                    </button>
+                    <button type="button" *ngIf="row?.status=='INACTIVO'"
+                        class="btn btn-info btn-link"
+                        (click)="activeProduct(row)">Activar
+                    </button>
+                  </div>
+              </ng-template>
+          </ngx-datatable-column>
+      </ngx-datatable>
     </div>
   </div>
 </div>

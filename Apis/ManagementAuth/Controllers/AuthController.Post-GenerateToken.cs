@@ -1,11 +1,11 @@
-﻿using ManagementProducts.Api.Controllers.Payload;
-using ManagementProducts.Api.Core.Contexts;
+﻿using ManagementAuth.Api.Controllers.Payload;
+using ManagementAuth.Api.Core.Contexts;
 using ManagementProducts.Use.Cases.Aurh.Interfaces;
 using ManagementProducts.Use.Cases.Shared;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace ManagementProducts.Api.Controllers
+namespace ManagementAuth.Api.Controllers
 {
     public partial class AuthController
     {

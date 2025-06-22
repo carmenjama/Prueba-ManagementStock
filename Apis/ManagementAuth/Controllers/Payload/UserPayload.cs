@@ -1,0 +1,12 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ManagementAuth.Api.Controllers.Payload
+{
+    public class UserPayload
+    {
+        [Required]
+        public string User { get; set; } = string.Empty;
+        [Required]
+        public string Pass { get; set; } = string.Empty;
+    }
+}

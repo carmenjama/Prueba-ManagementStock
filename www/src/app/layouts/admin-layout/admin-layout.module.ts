@@ -16,13 +16,17 @@ import { UpgradeComponent }         from '../../pages/upgrade/upgrade.component'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductComponent } from 'app/pages/product/product.component';
 import { TransactionComponent } from 'app/pages/transaction/transaction.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
-    NgbModule
+    NgbModule,
+    NgxDatatableModule,
+    ReactiveFormsModule
   ],
   declarations: [
     DashboardComponent,
@@ -33,7 +37,7 @@ import { TransactionComponent } from 'app/pages/transaction/transaction.componen
     IconsComponent,
     NotificationsComponent,
     ProductComponent,
-    TransactionComponent
+    TransactionComponent,
   ]
 })
 
