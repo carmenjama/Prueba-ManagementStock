@@ -105,7 +105,7 @@ export class TransactionComponent implements OnInit{
                 disableClose: true,
                 data: {
                     title: "Registrar compra",
-                    type: "buy"
+                    type: "COMPRA"
                 },
             }
         );
@@ -125,7 +125,7 @@ export class TransactionComponent implements OnInit{
                 disableClose: true,
                 data: {
                     title: "Registrar venta",
-                    type: "sale"
+                    type: "VENTA"
                 },
             }
         );
@@ -148,5 +148,18 @@ export class TransactionComponent implements OnInit{
         if (!pattern.test(event.key)) {
             event.preventDefault();
         }
+    }
+
+     delete(item) {
+        this.transaction.delete(item.id)
+        .subscribe({
+            next: (res) => {
+                this.message.showNotification("bottom", "right", TypeMessage.Sucess, "Transacción eliminado")
+                this.getItems();
+            },
+            error: (err) => {
+                this.message.showNotification("bottom", "right", TypeMessage.Error, "Error al eliminar transacción")
+            }
+        });
     }
 }

@@ -1,30 +1,26 @@
 ﻿using ManagementProducts.SharedDto.Dto;
 using ManagementProducts.Use.Cases.Aurh.Interfaces;
 using ManagementProducts.Use.Cases.Shared;
-using ManagementProducts.Use.Cases.TypeTransactions.Interfaces;
-using ManagementTrans.Api.Controllers.Responses;
-using ManagementTrans.Api.Core.Contexts;
-using ManagementTrans.Api.Core.Shared;
+using ManagementProducts.Use.Cases.Transactions.Interfaces;
+using ManagementTransaction.Api.Controllers.Payload;
+using ManagementTransaction.Api.Core.Contexts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 using System.ComponentModel.DataAnnotations;
 
-namespace ManagementTrans.Api.Controllers
+namespace ManagementTransaction.Api.Controllers
 {
-    public partial class TypeTransactionController
+    public partial class TransactionController
     {
-        [HttpGet]
+        [HttpDelete]
         [Authorize]
-        [Route("{isPaginated}")]
-        [ProducesResponseType(typeof(PaginatedDto<TypeTransactionResponsse>), StatusCodes.Status200OK)]
-        public IActionResult GetAll(
-            [FromServices] ITypeTransactionsGetAll useCase,
+        [Route("{id}")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        public IActionResult Delete(
+            [FromServices] IDeleteTransaction useCase,
             [FromServices] IDecodeToken decodeToken,
-            [FromRoute][Required] bool isPaginated,
-            [FromQuery] string? status, 
-            [FromQuery] int page = 0,
-            [FromQuery] int limit = 0)
+            [FromRoute][Required] long id)
         {
             Token = Request.Headers[HeaderNames.Authorization].ToString().Replace("Bearer ", "");
 
@@ -42,13 +38,7 @@ namespace ManagementTrans.Api.Controllers
 
             var result = useCase
                 .WithContext(ApplicationContext.SqlServerDbContext)
-                .Execute(new TypeTransactionDto
-                {
-                    Status = status ?? string.Empty,
-                    IsPaginated = isPaginated,
-                    Page = page,
-                    Limit = limit
-                });
+                .Execute(id, validateToken.Payload().User);
 
             if (result.Failure() != null)
             {
@@ -57,11 +47,7 @@ namespace ManagementTrans.Api.Controllers
                 return BadRequest();
             }
 
-            var items = Mapper.Map<IEnumerable<TypeTransactionResponsse>>(result.Payload()?.Elements);
-            if (!isPaginated)
-                return Ok(items);
-
-            return Ok(items.PagerObject(result.Payload()));
+            return Ok(result.Payload());
         }
     }
 }

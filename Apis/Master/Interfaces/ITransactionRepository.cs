@@ -10,6 +10,7 @@ namespace ManagementProducts.Master.Interfaces
     {
         ITransactionRepository WithContext(ISqlConnectionManager sqlConnectionManager);
         IEnumerable<ITransactionTableRow> GetAll(TransactionDto dto, out int totalRows);
+        void Delete(long id, string status, string modifiedBy, string modifiedHost);
         long Insert(ITransactionTableRow dto);
     }
 }

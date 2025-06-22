@@ -11,7 +11,7 @@ export class TypeTransaction {
     private unsuscribe$ = new Subject<void>();
     
     constructor(private crudService: ServicesCrud) {   
-        this.UrlService = environment.serviceProductUrl;
+        this.UrlService = environment.serviceTransUrl;
     }
 
     getAll(isPaginated: boolean, page: number = 0, limit: number = 0):Observable<any>{

@@ -41,7 +41,7 @@ export class Product {
     }
 
     getImage(id: number):Observable<any>{
-        return this.crudService.GetAll({id: id},
+        return this.crudService.GetAll({},
             this.UrlService, `image/${id}`
         ).pipe(takeUntil(this.unsuscribe$));
     }

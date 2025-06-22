@@ -14,19 +14,13 @@ export class Transaction {
     private unsuscribe$ = new Subject<void>();
     
     constructor(private crudService: ServicesCrud) {   
-        this.UrlService = environment.serviceProductUrl;
+        this.UrlService = environment.serviceTransUrl;
     }
 
     insert(dto: TransactionDto):Observable<any>{        
         return this.crudService.Post(dto, this.UrlService, "transaction"
         ).pipe(takeUntil(this.unsuscribe$));
     }
-
-    // update(dto: ProductDto, id: number):Observable<any>{
-    //     return this.crudService.Patch(dto, 
-    //         this.UrlService, `product/${id}`
-    //     ).pipe(takeUntil(this.unsuscribe$));
-    // }
 
     getAll(dto: TransactionDto, isPaginated: boolean, page: number = 0, limit: number = 0):Observable<any>{
         return this.crudService.GetAll(dto,
@@ -35,7 +29,7 @@ export class Transaction {
         ).pipe(takeUntil(this.unsuscribe$));
     }
 
-    // delete(id: number = 0):Observable<any>{
-    //     return this.crudService.Delete(id, this.UrlService, `product`).pipe(takeUntil(this.unsuscribe$));
-    // }
+    delete(id: number = 0):Observable<any>{
+        return this.crudService.Delete(id, this.UrlService, `transaction`).pipe(takeUntil(this.unsuscribe$));
+    }
 }
