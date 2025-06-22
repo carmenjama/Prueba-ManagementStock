@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagementTrans", "Manageme
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagementAuth", "ManagementAuth\ManagementAuth.csproj", "{ABF1EB55-2039-4CB2-B761-8687E0732672}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagementTransaction", "ManagementTransaction\ManagementTransaction.csproj", "{542AB2DF-C88F-4868-8A3B-6D003F2A1318}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{ABF1EB55-2039-4CB2-B761-8687E0732672}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABF1EB55-2039-4CB2-B761-8687E0732672}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABF1EB55-2039-4CB2-B761-8687E0732672}.Release|Any CPU.Build.0 = Release|Any CPU
+		{542AB2DF-C88F-4868-8A3B-6D003F2A1318}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{542AB2DF-C88F-4868-8A3B-6D003F2A1318}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{542AB2DF-C88F-4868-8A3B-6D003F2A1318}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{542AB2DF-C88F-4868-8A3B-6D003F2A1318}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +70,7 @@ Global
 		{8261399E-1E28-4C8F-962E-063B2C6C105B} = {B40EF960-819D-44B6-9D48-9308E96EE9AB}
 		{CB331F29-0FC8-5B66-2883-DD794275FB1C} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{ABF1EB55-2039-4CB2-B761-8687E0732672} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{542AB2DF-C88F-4868-8A3B-6D003F2A1318} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A14FFE31-4C67-4518-A030-2F5C7F6090D0}
