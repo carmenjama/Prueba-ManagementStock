@@ -1,9 +1,9 @@
 ﻿using AspNetCoreRateLimit;
-using ManagementProducts.Api.Core.Handlers;
-using ManagementProducts.Api.Core.Contexts;
-using ManagementProducts.Api.Core.Formatters;
+using ManagementTrans.Api.Core.Handlers;
+using ManagementTrans.Api.Core.Contexts;
+using ManagementTrans.Api.Core.Formatters;
 using Microsoft.AspNetCore.Authorization;
-using ManagementProducts.Api.Core.Settings;
+using ManagementTrans.Api.Core.Settings;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace ManagementProducts.Api
+namespace ManagementTrans.Api
 {
     public class Startup
     {

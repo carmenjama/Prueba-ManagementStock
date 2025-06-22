@@ -10,10 +10,10 @@ namespace ManagementProducts.Use.Cases.TypeTransactions.Queries
     internal class TypeTransactionsGetAll : ITypeTransactionsGetAll
     {
         private readonly ISqlConnectionManager _connectionManager;
-        private readonly ITransactionRepository _transactionRepository;
+        private readonly ITypeTransactionRepository _transactionRepository;
 
         public TypeTransactionsGetAll(ISqlConnectionManager connectionManager,
-            ITransactionRepository transactionRepository)
+            ITypeTransactionRepository transactionRepository)
         {
             this._connectionManager = connectionManager;
             this._transactionRepository = transactionRepository;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 
-namespace ManagementProducts.Api.Core.Handlers
+namespace ManagementTrans.Api.Core.Handlers
 {
     ///<summary>
     /// This authorisation handler will bypass all requirements

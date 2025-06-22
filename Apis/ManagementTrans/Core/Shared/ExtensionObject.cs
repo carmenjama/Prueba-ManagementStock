@@ -1,6 +1,6 @@
 ﻿using ManagementProducts.SharedDto.Dto;
 
-namespace ManagementProducts.Api.Core.Shared
+namespace ManagementTrans.Api.Core.Shared
 {
     public static class ExtensionObject
     {

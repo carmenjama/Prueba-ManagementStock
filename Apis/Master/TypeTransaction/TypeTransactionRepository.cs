@@ -4,9 +4,9 @@ using ManagementProducts.Master.Shared;
 
 namespace ManagementProducts.Master.TypeTransaction
 {
-    public partial class TransactionRepository : CrudManagement, ITransactionRepository
+    public partial class TypeTransactionRepository : CrudManagement, ITypeTransactionRepository
     {
-        public ITransactionRepository WithContext(ISqlConnectionManager sqlConnectionManager)
+        public ITypeTransactionRepository WithContext(ISqlConnectionManager sqlConnectionManager)
         {
             this.Transaction(sqlConnectionManager);
             return this;

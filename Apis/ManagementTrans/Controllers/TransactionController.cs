@@ -5,12 +5,12 @@ namespace ManagementTrans.Api.Controllers
 {
     [Produces("application/json")]
     [ApiController]
-    [Route("type-transaction")]
-    public partial class TypeTransactionController : ControllerBase
+    [Route("transaction")]
+    public partial class TransactionController : ControllerBase
     {
         private string Token = string.Empty;
         private readonly IMapper Mapper;
 
-        public TypeTransactionController(IMapper mapper) => Mapper = mapper;
+        public TransactionController(IMapper mapper) => Mapper = mapper;
     }
 }

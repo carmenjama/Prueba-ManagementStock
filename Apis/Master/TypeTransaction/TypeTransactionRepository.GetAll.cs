@@ -4,7 +4,7 @@ using ManagementProducts.SharedDto.Dto;
 
 namespace ManagementProducts.Master.TypeTransaction
 {
-    public partial class TransactionRepository
+    public partial class TypeTransactionRepository
     {
         public IEnumerable<ITypeTransactionTableRow> GetAll(TypeTransactionDto dto, out int totalRows)
         {

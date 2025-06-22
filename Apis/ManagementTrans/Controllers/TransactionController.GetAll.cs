@@ -1,7 +1,7 @@
 ﻿using ManagementProducts.SharedDto.Dto;
 using ManagementProducts.Use.Cases.Aurh.Interfaces;
 using ManagementProducts.Use.Cases.Shared;
-using ManagementProducts.Use.Cases.TypeTransactions.Interfaces;
+using ManagementProducts.Use.Cases.Transactions.Interfaces;
 using ManagementTrans.Api.Controllers.Responses;
 using ManagementTrans.Api.Core.Contexts;
 using ManagementTrans.Api.Core.Shared;
@@ -12,17 +12,22 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ManagementTrans.Api.Controllers
 {
-    public partial class TypeTransactionController
+    public partial class TransactionController
     {
         [HttpGet]
         [Authorize]
         [Route("{isPaginated}")]
-        [ProducesResponseType(typeof(PaginatedDto<TypeTransactionResponsse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PaginatedDto<TransactionResponsse>), StatusCodes.Status200OK)]
         public IActionResult GetAll(
-            [FromServices] ITypeTransactionsGetAll useCase,
+            [FromServices] ITransactionsGetAll useCase,
             [FromServices] IDecodeToken decodeToken,
             [FromRoute][Required] bool isPaginated,
-            [FromQuery] string? status, 
+            [FromQuery] long? id,
+            [FromQuery] long? typeTransactionId,
+            [FromQuery] string? productName,
+            [FromQuery] string? status,
+            [FromQuery] DateTime? filterMinDate,
+            [FromQuery] DateTime? filterMaxDate,
             [FromQuery] int page = 0,
             [FromQuery] int limit = 0)
         {
@@ -42,9 +47,14 @@ namespace ManagementTrans.Api.Controllers
 
             var result = useCase
                 .WithContext(ApplicationContext.SqlServerDbContext)
-                .Execute(new TypeTransactionDto
+                .Execute(new TransactionDto
                 {
+                    Id = id ?? 0,
+                    TypeTransactionId = typeTransactionId ?? 0,
+                    ProductName = productName ?? string.Empty,
                     Status = status ?? string.Empty,
+                    FilterMinDate = filterMinDate,
+                    FilterMaxDate = filterMaxDate,
                     IsPaginated = isPaginated,
                     Page = page,
                     Limit = limit
@@ -57,7 +67,7 @@ namespace ManagementTrans.Api.Controllers
                 return BadRequest();
             }
 
-            var items = Mapper.Map<IEnumerable<TypeTransactionResponsse>>(result.Payload()?.Elements);
+            var items = Mapper.Map<IEnumerable<TransactionResponsse>>(result.Payload()?.Elements);
             if (!isPaginated)
                 return Ok(items);
 

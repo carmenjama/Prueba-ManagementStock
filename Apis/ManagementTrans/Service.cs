@@ -1,6 +1,6 @@
-﻿using ManagementProducts.Api.Core.Contexts;
+﻿using ManagementTrans.Api.Core.Contexts;
 
-namespace ManagementProducts.Api
+namespace ManagementTrans.Api
 {
     internal static class Service
     {

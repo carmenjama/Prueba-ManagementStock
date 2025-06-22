@@ -1,4 +1,4 @@
-﻿namespace ManagementProducts.Api.Core.Shared
+﻿namespace ManagementTrans.Api.Core.Shared
 {
     public class PaginatedResponse<T>
     {

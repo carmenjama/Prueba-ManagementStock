@@ -1,10 +1,10 @@
-﻿using ManagementProducts.Api.Core.Contexts;
+﻿using ManagementTrans.Api.Core.Contexts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace ManagementProducts.Api.Core.Filters
+namespace ManagementTrans.Api.Core.Filters
 {
     /// <summary>
     /// Adds AUTH token to the services that require authentication

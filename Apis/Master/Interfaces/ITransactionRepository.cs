@@ -9,6 +9,7 @@ namespace ManagementProducts.Master.Interfaces
     public interface ITransactionRepository : ICrudManagement
     {
         ITransactionRepository WithContext(ISqlConnectionManager sqlConnectionManager);
-        IEnumerable<ITypeTransactionTableRow> GetAll(TypeTransactionDto dto, out int totalRows);
+        IEnumerable<ITransactionTableRow> GetAll(TransactionDto dto, out int totalRows);
+        long Insert(ITransactionTableRow dto);
     }
 }

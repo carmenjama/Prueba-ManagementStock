@@ -1,257 +1,137 @@
 <div class="row">
   <div class="col-md-12">
     <div class="card">
-      <div class="card-header">
-        <h4 class="card-title"> Simple Table</h4>
-      </div>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table">
-            <thead class=" text-primary">
-              <th>
-                Name
-              </th>
-              <th>
-                Country
-              </th>
-              <th>
-                City
-              </th>
-              <th class="text-right">
-                Salary
-              </th>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  Dakota Rice
-                </td>
-                <td>
-                  Niger
-                </td>
-                <td>
-                  Oud-Turnhout
-                </td>
-                <td class="text-right">
-                  $36,738
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Minerva Hooper
-                </td>
-                <td>
-                  Curaçao
-                </td>
-                <td>
-                  Sinaai-Waas
-                </td>
-                <td class="text-right">
-                  $23,789
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Sage Rodriguez
-                </td>
-                <td>
-                  Netherlands
-                </td>
-                <td>
-                  Baileux
-                </td>
-                <td class="text-right">
-                  $56,142
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Philip Chaney
-                </td>
-                <td>
-                  Korea, South
-                </td>
-                <td>
-                  Overland Park
-                </td>
-                <td class="text-right">
-                  $38,735
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Doris Greene
-                </td>
-                <td>
-                  Malawi
-                </td>
-                <td>
-                  Feldkirchen in Kärnten
-                </td>
-                <td class="text-right">
-                  $63,542
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Mason Porter
-                </td>
-                <td>
-                  Chile
-                </td>
-                <td>
-                  Gloucester
-                </td>
-                <td class="text-right">
-                  $78,615
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Jon Porter
-                </td>
-                <td>
-                  Portugal
-                </td>
-                <td>
-                  Gloucester
-                </td>
-                <td class="text-right">
-                  $98,615
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="card-header">
+            <h4 class="card-title">Lista transacciones</h4>
         </div>
-      </div>
+        <div class="card-body">
+            <form [formGroup]="itemForm" (ngSubmit)="getItems()">
+            <div class="row">
+                <div class="col-md-6 px-1">
+                <div class="form-group">
+                    <label>Producto</label>
+                    <input type="text" class="form-control" placeholder="Nombre"
+                    formControlName="productname"
+                    maxlength=100
+                    pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\- ]+$"
+                    (keypress)="onKeyPressName($event)">
+                </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group">
+                    <label>Tipo</label>
+                    <select name="product" class="form-control" formControlName="transactiontypeid">
+                        <option *ngFor="let item of transacts" [value]="item.id">{{ item.name }}</option>
+                    </select>
+                </div>
+                </div>
+                <div class="col-md-3 px-1">
+                <div class="form-group">
+                    <label>Estado</label>
+                    <select name="category" class="form-control" formControlName="status">
+                        <option *ngFor="let item of status" [value]="item.id">{{ item.name }}</option>
+                    </select>
+                </div>
+                </div>
+                <div class="col-md-6 pr-1">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6 pr-1">
+                            <label>Rango fechas</label>
+                            <input type="datetime" class="form-control" placeholder="Min" formControlName="mindate">
+                        </div>
+                        <div class="col-md-6 pr-1">
+                            <label></label>
+                            <input type="number" class="form-control" placeholder="Max" formControlName="maxdate">
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-secondary btn-round  col-md-12">Buscar</button>
+                </div>
+            </div>
+            </form>
+        </div>
     </div>
-  </div>
-  <div class="col-md-12">
-    <div class="card card-plain">
-      <div class="card-header">
-        <h4 class="card-title"> Table on Plain Background</h4>
-        <p class="card-category"> Here is a subtitle for this table</p>
-      </div>
+    <div class="card">
       <div class="card-body">
-        <div class="table-responsive">
-          <table class="table">
-            <thead class=" text-primary">
-              <th>
-                Name
-              </th>
-              <th>
-                Country
-              </th>
-              <th>
-                City
-              </th>
-              <th class="text-right">
-                Salary
-              </th>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  Dakota Rice
-                </td>
-                <td>
-                  Niger
-                </td>
-                <td>
-                  Oud-Turnhout
-                </td>
-                <td class="text-right">
-                  $36,738
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Minerva Hooper
-                </td>
-                <td>
-                  Curaçao
-                </td>
-                <td>
-                  Sinaai-Waas
-                </td>
-                <td class="text-right">
-                  $23,789
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Sage Rodriguez
-                </td>
-                <td>
-                  Netherlands
-                </td>
-                <td>
-                  Baileux
-                </td>
-                <td class="text-right">
-                  $56,142
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Philip Chaney
-                </td>
-                <td>
-                  Korea, South
-                </td>
-                <td>
-                  Overland Park
-                </td>
-                <td class="text-right">
-                  $38,735
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Doris Greene
-                </td>
-                <td>
-                  Malawi
-                </td>
-                <td>
-                  Feldkirchen in Kärnten
-                </td>
-                <td class="text-right">
-                  $63,542
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Mason Porter
-                </td>
-                <td>
-                  Chile
-                </td>
-                <td>
-                  Gloucester
-                </td>
-                <td class="text-right">
-                  $78,615
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Jon Porter
-                </td>
-                <td>
-                  Portugal
-                </td>
-                <td>
-                  Gloucester
-                </td>
-                <td class="text-right">
-                  $98,615
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="row">
+          <div class="col-md-6"></div>
+          <div class="col-md-3">
+            <button type="button" class="btn btn-primary btn-round col-md-12" (click)="buy()">Comprar</button>
+          </div>
+          <div class="col-md-3">
+            <button type="button" class="btn btn-success btn-round col-md-12" (click)="sale()">Vender</button>
+          </div>
         </div>
-      </div>
+        <ngx-datatable 
+          #table 
+          [messages]="{emptyMessage: 'No existen registros', totalMessage: 'Total de registros'}" 
+          class="material striped css-data-table-01" 
+          [rows]="items?.elements" 
+          [columnMode]="'force'"
+          [headerHeight]="50" 
+          [footerHeight]="50" 
+          [rowHeight]="50" 
+          [scrollbarH]="true" 
+          [count]="items?.total"
+          [limit]="items?.limit" 
+          [offset]="items?.pageNumber - 1" 
+          (page)="setPage($event)"
+          [selectionType]="SelectionType.single"
+          [externalPaging]="true">
+
+          <ngx-datatable-column name="Acciones" [flexGrow]="1" [width]="50">
+              <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                  <div class="botones-tabla">
+                    <button type="button" *ngIf="row?.status=='ACTIVO'"
+                        class="btn btn-warning btn-round"
+                        (click)="delete(row)">Eliminar
+                    </button>
+                  </div>
+              </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Fecha" width="150">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.transactionDate | date : "dd/MM/yyyy, h:mm:ss a" }}
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Tipo" [width]="100">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                  <p class="css-p-table">{{ row?.typeTransactionName || "SIN DATOS" }}</p>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Producto" [width]="150">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                  <p class="css-p-table">{{ row?.productName || "SIN DATOS" }}</p>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Notas" [width]="100">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                  <p class="css-p-table">{{ row?.note || "SIN DATOS" }}</p>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Precio" [width]="100">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                  <p class="css-p-table text-center">{{ (row?.price | currency)}}</p>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Cantidad" [width]="100">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                  <p class="css-p-table text-center">{{ row?.quantity }}</p>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Estado" [width]="100">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                  <p class="css-p-table">{{ row?.status || "SIN DATOS" }}</p>
+              </ng-template>
+          </ngx-datatable-column>
+
+      </ngx-datatable>
     </div>
   </div>
 </div>

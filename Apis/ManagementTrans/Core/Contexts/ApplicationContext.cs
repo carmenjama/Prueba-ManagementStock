@@ -1,10 +1,10 @@
-﻿using ManagementProducts.Api.Core.Settings;
+﻿using ManagementTrans.Api.Core.Settings;
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Net;
 using ManagementProducts.SharedDto.DbContext;
 
-namespace ManagementProducts.Api.Core.Contexts
+namespace ManagementTrans.Api.Core.Contexts
 {
     public class ApplicationContext
     {

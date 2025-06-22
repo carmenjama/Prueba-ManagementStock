@@ -84,7 +84,7 @@ export class ProductComponent implements OnInit{
         filters.FilterPriceMax = this.itemForm.value["maxprice"];
         filters.FilterStockMin = this.itemForm.value["minstock"];
         filters.FilterStockMax = this.itemForm.value["maxstock"];
-        console.log("filters", filters)
+        
         this.product.getAll(filters, true, 1, 10).subscribe({
             next: (res) => {
                 this.products.set(res);
@@ -188,7 +188,7 @@ export class ProductComponent implements OnInit{
                     width: window.innerWidth > 1024 ? "75vh" : "100vh",
                     disableClose: true,
                     data: {
-                        title: "Imágen producto",
+                        title: "Imagen producto",
                         productId: item.id
                     },
                 }

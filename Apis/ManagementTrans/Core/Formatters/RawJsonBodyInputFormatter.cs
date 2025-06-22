@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Formatters;
 
-namespace ManagementProducts.Api.Core.Formatters
+namespace ManagementTrans.Api.Core.Formatters
 {
     public class RawJsonBodyInputFormatter : InputFormatter
     {

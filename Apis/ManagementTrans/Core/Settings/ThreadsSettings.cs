@@ -1,4 +1,4 @@
-﻿namespace ManagementProducts.Api.Core.Settings
+﻿namespace ManagementTrans.Api.Core.Settings
 {
     public class ThreadsSettings
     {

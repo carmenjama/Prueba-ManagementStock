@@ -1,4 +1,4 @@
-﻿namespace ManagementProducts.Api.Controllers.Responses
+﻿namespace ManagementTrans.Api.Controllers.Responses
 {
     public class TypeTransactionResponsse
     {

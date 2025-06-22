@@ -1,10 +1,10 @@
-﻿using ManagementProducts.Api.Core.Filters;
-using ManagementProducts.Api.Core.Contexts;
+﻿using ManagementTrans.Api.Core.Filters;
+using ManagementTrans.Api.Core.Contexts;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace ManagementProducts.Api.Core.Handlers
+namespace ManagementTrans.Api.Core.Handlers
 {
     public class ConfigureSwaggerOptionsHandler : IConfigureNamedOptions<SwaggerGenOptions>
     {

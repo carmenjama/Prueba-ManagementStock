@@ -1,5 +1,4 @@
 ﻿using ManagementProducts.Master.Interfaces.TableRow;
-using System.Xml.XPath;
 
 namespace ManagementProducts.Master.Product
 {
