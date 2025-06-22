@@ -5,7 +5,6 @@ import { SelectionType } from '@swimlane/ngx-datatable';
 import { TypeMessage } from 'app/enums/TypeMessage';
 import { ServicesCrud } from 'app/services/ServicesCrud';
 import { MessageComponent } from 'app/shared/notification/message.component';
-import { CategoryDto } from 'app/usecase/dto/CategoryDto';
 import { TransactionDto } from 'app/usecase/dto/TransactionDto';
 import { TypeTransactionDto } from 'app/usecase/dto/TypeTransactionDto';
 import { Pager } from 'app/usecase/entitie/Pager';
@@ -13,9 +12,6 @@ import { Transaction } from 'app/usecase/entitie/Transaction';
 import { TypeTransaction } from 'app/usecase/entitie/TypeTransaction';
 import { ToastrService } from 'ngx-toastr';
 import { RegisterModalComponent } from './register/register.component';
-import { Product } from 'app/usecase/entitie/Product';
-import { ProductDto } from 'app/usecase/dto/ProductDto';
-
 declare interface TableData {
     headerRow: string[];
     dataRows: string[][];
@@ -74,7 +70,7 @@ export class TransactionComponent implements OnInit{
                 this.transacts =res;
             },
             error: (err) => {
-                this.message.showNotification("bottom", "right", TypeMessage.Error, "No se encontraron tipos")
+                this.message.showNotification("bottom", "right", TypeMessage.Error, err?.error?.message || "No se encontraron tipos")
             }
         });
     }
@@ -92,7 +88,7 @@ export class TransactionComponent implements OnInit{
                 this.items.set(res);
             },
             error: (err) => {
-                this.message.showNotification("bottom", "right", TypeMessage.Error, "No se encontraron transacciones")
+                this.message.showNotification("bottom", "right", TypeMessage.Error, err?.error?.message || "No se encontraron transacciones")
             }
         });
     }
@@ -158,7 +154,7 @@ export class TransactionComponent implements OnInit{
                 this.getItems();
             },
             error: (err) => {
-                this.message.showNotification("bottom", "right", TypeMessage.Error, "Error al eliminar transacción")
+                this.message.showNotification("bottom", "right", TypeMessage.Error, err?.error?.message || "Error al eliminar transacción")
             }
         });
     }

@@ -64,9 +64,8 @@ namespace ManagementProducts.Use.Cases.Transactions.Commands
                     TypeTransactionId = type?.FirstOrDefault()?.Id ?? 0,
                     Quantity = dto.Quantity,
                     Price = dto.Price,
-                    TransactionDate = dto.TransactionDate,
+                    TransactionDate = DateTime.Now,
                     Note = dto.Note,
-                    
                 };
                 
                 dto.Id = _transactionRepository.Insert(data.InsertAudit(createdBy));

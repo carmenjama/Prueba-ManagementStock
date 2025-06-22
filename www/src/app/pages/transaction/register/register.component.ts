@@ -34,10 +34,10 @@ export class RegisterModalComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        if(this.data?.type == "buy"){
+        if(this.data?.type == "COMPRA"){
             this.getProducts("ACTIVO");
         }else{
-            this.getProducts("ACTIVO", 0);
+            this.getProducts("ACTIVO", 1);
         }
     }
 
@@ -74,7 +74,7 @@ export class RegisterModalComponent implements OnInit {
                 this.dialogRef.close(this.itemForm.value);
             },
             error: (err) => {
-                this.message.showNotification("bottom", "right", TypeMessage.Error, "Error al guardar datos")
+                this.message.showNotification("bottom", "right", TypeMessage.Error, err?.error?.message || "Error al guardar datos")
             }
         });
     }

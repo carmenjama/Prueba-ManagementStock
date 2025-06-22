@@ -69,7 +69,7 @@ export class ProductComponent implements OnInit{
                 this.categories = res;
             },
             error: (err) => {
-                this.message.showNotification("bottom", "right", TypeMessage.Error, "No se encontraron categorías")
+                this.message.showNotification("bottom", "right", TypeMessage.Error, err?.error?.message || "No se encontraron categorías")
             }
         });
     }
@@ -90,7 +90,7 @@ export class ProductComponent implements OnInit{
                 this.products.set(res);
             },
             error: (err) => {
-                this.message.showNotification("bottom", "right", TypeMessage.Error, "No se encontraron productos")
+                this.message.showNotification("bottom", "right", TypeMessage.Error, err?.error?.message || "No se encontraron productos")
             }
         });
     }
@@ -118,7 +118,7 @@ export class ProductComponent implements OnInit{
                         this.getProducts();
                     },
                     error: (err) => {
-                        this.message.showNotification("bottom", "right", TypeMessage.Error, "Error al actualizar producto")
+                        this.message.showNotification("bottom", "right", TypeMessage.Error, err?.error?.message || "Error al actualizar producto")
                     }
                 }); 
             }
@@ -147,7 +147,7 @@ export class ProductComponent implements OnInit{
                         this.getProducts();
                     },
                     error: (err) => {
-                        this.message.showNotification("bottom", "right", TypeMessage.Error, "Error al agregar producto")
+                        this.message.showNotification("bottom", "right", TypeMessage.Error, err?.error?.message || "Error al agregar producto")
                     }
                 }); 
             }
@@ -162,7 +162,7 @@ export class ProductComponent implements OnInit{
                 this.getProducts();
             },
             error: (err) => {
-                this.message.showNotification("bottom", "right", TypeMessage.Error, "Error al eliminar producto")
+                this.message.showNotification("bottom", "right", TypeMessage.Error, err?.error?.message || "Error al eliminar producto")
             }
         });
     }
@@ -175,7 +175,7 @@ export class ProductComponent implements OnInit{
                 this.getProducts();
             },
             error: (err) => {
-                this.message.showNotification("bottom", "right", TypeMessage.Error, "Error al activar producto")
+                this.message.showNotification("bottom", "right", TypeMessage.Error, err?.error?.message || "Error al activar producto")
             }
         });
     }
