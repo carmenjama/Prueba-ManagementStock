@@ -58,7 +58,7 @@ namespace ManagementProducts.Use.Cases.Product.Queries
             }
             catch (Exception ex)
             {
-                return new UseCaseError { Reason = "Error", Message = "Error al ingresar datos" };
+                return new UseCaseError { Reason = "Error", Message = "Error búsqueda datos" };
             }
         }
     }

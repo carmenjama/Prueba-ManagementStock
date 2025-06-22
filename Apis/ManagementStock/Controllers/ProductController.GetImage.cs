@@ -5,6 +5,7 @@ using ManagementProducts.Use.Cases.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
+using System.ComponentModel.DataAnnotations;
 
 namespace ManagementProducts.Api.Controllers
 {
@@ -15,8 +16,9 @@ namespace ManagementProducts.Api.Controllers
         [Route("/image/{id}")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         public IActionResult GetImage(
-            [FromServices] IGetAllProduct useCase,
-            [FromServices] IDecodeToken decodeToken)
+            [FromServices] IGetProductImage useCase,
+            [FromServices] IDecodeToken decodeToken,
+            [FromRoute][Required] long id)
         {
             Token = Request.Headers[HeaderNames.Authorization].ToString().Replace("Bearer ", "");
 
@@ -32,7 +34,19 @@ namespace ManagementProducts.Api.Controllers
                 return BadRequest();
             }
 
-            return Ok();
+            var result = useCase
+                .WithContext(ApplicationContext.SqlServerDbContext)
+                .Execute(id);
+
+            if (result.Failure() != null)
+            {
+                if (((UseCaseError)result.Failure()).Reason == "Unauthorized") return Unauthorized();
+                if (result.Failure() is NoResult) return NotFound();
+                if (result.Failure() is UseCaseError) return BadRequest((UseCaseError)result.Failure());
+                return BadRequest();
+            }
+
+            return Ok(result.Payload());
         }
     }
 }

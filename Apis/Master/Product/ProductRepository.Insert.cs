@@ -1,4 +1,5 @@
 ﻿using ManagementProducts.Master.Interfaces.TableRow;
+using System.Xml.XPath;
 
 namespace ManagementProducts.Master.Product
 {
@@ -14,6 +15,8 @@ namespace ManagementProducts.Master.Product
                    ,[Unit]
                    ,[Stock]
                    ,[Note]
+                   ,[Data]
+                   ,[Extension]
                    ,[Status]
                    ,[CreatedBy]
                    ,[CreatedHost]
@@ -26,6 +29,8 @@ namespace ManagementProducts.Master.Product
                    ,@Unit
                    ,@Stock
                    ,@Note
+                   ,@Data
+                   ,@Extension
                    ,@Status
                    ,@CreatedBy
                    ,@CreatedHost
@@ -41,6 +46,8 @@ namespace ManagementProducts.Master.Product
                   Unit = dto.Unit,
                   Stock = 0,
                   Note = dto.Note,
+                  Data = dto.Data,
+                  Extension = dto.Extension,
                   Status = dto.Status,
                   CreatedBy = dto.CreatedBy,
                   CreatedHost = dto.CreatedHost,

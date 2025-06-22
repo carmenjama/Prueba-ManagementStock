@@ -1,4 +1,5 @@
 ﻿using ManagementProducts.Master.Interfaces.TableRow;
+using System.Xml.Schema;
 
 namespace ManagementProducts.Master.Product
 {
@@ -14,6 +15,8 @@ namespace ManagementProducts.Master.Product
                   ,[Unit] = @Unit
                   ,[Stock] = @Stock
                   ,[Note] = @Note
+                  ,[Data] = @Data
+                  ,[Extension] = @Extension
                   ,[Status] = @Status
                   ,[ModifiedBy] = @ModifiedBy
                   ,[ModifiedHost] = @ModifiedHost
@@ -30,6 +33,8 @@ namespace ManagementProducts.Master.Product
                     Unit = dto.Unit,
                     Stock = dto.Stock,
                     Note = dto.Note,
+                    Data = dto.Data,
+                    Extension = dto.Extension,
                     Status = dto.Status,
                     ModifiedBy = dto.ModifiedBy,
                     ModifiedHost = dto.ModifiedHost,

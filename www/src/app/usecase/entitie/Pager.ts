@@ -29,10 +29,11 @@ export class Pager<T>{
     }
 
     set(data) {
+        this.isPager = true;
+        this.pageNumber = data.currentPage;
+        this.limit = data.limit;
+        this.count = data.numberPages;
         this.total = data.totalRecords;
-        if (this.limit !== data.totalRecordsPage) this.limit = data.totalRecordsPage;
-        this.count = data.totalRecordsPage == data.elements?.length ? data.totalRecordsPage : data.elements.length;
-        if (this.pageNumber !== data.currentPage) this.pageNumber = data.currentPage;
         this.elements = data.elements;
     }
 }

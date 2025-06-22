@@ -65,6 +65,11 @@ namespace ManagementProducts.Master.Product
                 conditions += string.IsNullOrEmpty(conditions) ? " WHERE P.[Stock]<=@FilterStockMax" : " AND P.[Stock]<=@FilterStockMax";
                 parameters.Add("FilterStockMax", dto.FilterStockMax);
             }
+            if (!string.IsNullOrEmpty(dto.Status))
+            {
+                conditions += string.IsNullOrEmpty(conditions) ? " WHERE P.[Status]=@Status" : " AND P.[Status]=@Status";
+                parameters.Add("Status", dto.Status);
+            }
 
             string query = @$"SELECT 
                    P.[Id]

@@ -12,6 +12,7 @@ namespace ManagementProducts.Master.Interfaces
         long Insert(IProductTableRow dto);
         void Update(IProductTableRow dto);
         bool Exists(string code);
+        (byte[] Data, string Type) GetImage(long id);
         IProductTableRow GetById(long id);
         IEnumerable<IProductTableRow> GetAll(ProductDto dto, out int totalRows);
         void Delete(long id, string status, string modifiedBy, string modifiedHost);

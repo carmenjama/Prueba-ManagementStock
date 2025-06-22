@@ -16,25 +16,19 @@ export class Product {
         this.UrlService = environment.serviceProductUrl;
     }
 
-    insert(categoryId: number, price: number, code: string, 
-        name: string, unit: string, note: string) {        
-        this.crudService.Post(
-            {
-                categoryId, price, code, name, note
-            }, 
-            this.UrlService, "product"
-        ).pipe(takeUntil(this.unsuscribe$))
-        .subscribe((res) => {
-            console.log("Aqui guardo datos", res)
-            return res
-        },(error) =>{
-            console.log("Aqui guardo datos erros", error)
-            return error
-        });
+    insert(dto: ProductDto):Observable<any>{        
+        return this.crudService.Post(dto, this.UrlService, "product"
+        ).pipe(takeUntil(this.unsuscribe$));
     }
 
-    activar(id: number):Observable<Pager<ProductDto>>{
+    active(id: number):Observable<any>{
         return this.crudService.Patch({status: 'ACTIVO'}, 
+            this.UrlService, `product/${id}`
+        ).pipe(takeUntil(this.unsuscribe$));
+    }
+
+    update(dto: ProductDto, id: number):Observable<any>{
+        return this.crudService.Patch(dto, 
             this.UrlService, `product/${id}`
         ).pipe(takeUntil(this.unsuscribe$));
     }
@@ -46,7 +40,13 @@ export class Product {
         ).pipe(takeUntil(this.unsuscribe$));
     }
 
-    delete(id: number = 0):Observable<Pager<ProductDto>>{
+    getImage(id: number):Observable<any>{
+        return this.crudService.GetAll({id: id},
+            this.UrlService, `image/${id}`
+        ).pipe(takeUntil(this.unsuscribe$));
+    }
+
+    delete(id: number = 0):Observable<any>{
         return this.crudService.Delete(id, this.UrlService, `product`).pipe(takeUntil(this.unsuscribe$));
     }
 }

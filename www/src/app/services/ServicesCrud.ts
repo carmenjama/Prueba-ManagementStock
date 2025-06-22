@@ -28,9 +28,9 @@ export class ServicesCrud {
                 queryParams.append(key, value.toString());
             }
         }
-        const fullUrl = `${url}${api}`;
+        let fullUrl = `${url}${api}`;
         if(queryParams.size>0){
-            const fullUrl = `&${queryParams.toString()}`;
+            fullUrl += `&${queryParams.toString()}`;
         }
         return this.httpClient.get<any>(fullUrl, this.HttpOptions);
     }

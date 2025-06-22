@@ -1,6 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SelectionType } from '@swimlane/ngx-datatable';
 import { TypeMessage } from 'app/enums/TypeMessage';
 import { ServicesCrud } from 'app/services/ServicesCrud';
@@ -11,6 +11,8 @@ import { Category } from 'app/usecase/entitie/Category';
 import { Pager } from 'app/usecase/entitie/Pager';
 import { Product } from 'app/usecase/entitie/Product';
 import { ToastrService } from 'ngx-toastr';
+import { ImageModalComponent } from './image-modal/image-modal.component';
+import { RegisteModalComponent } from './register/register.component';
 
 @Component({
     selector: 'product-cmp',
@@ -54,10 +56,10 @@ export class ProductComponent implements OnInit{
             code: ['', Validators.required],
             name: ['', Validators.required],
             status: ['', Validators.required],
-            minprice: [0, Validators.required],
-            maxprice: [0, Validators.required],
-            minstock: [0, Validators.required],
-            maxstock: [0, Validators.required],
+            minprice: [null, Validators.required],
+            maxprice: [null, Validators.required],
+            minstock: [null, Validators.required],
+            maxstock: [null, Validators.required],
         });
     }
 
@@ -82,8 +84,8 @@ export class ProductComponent implements OnInit{
         filters.FilterPriceMax = this.itemForm.value["maxprice"];
         filters.FilterStockMin = this.itemForm.value["minstock"];
         filters.FilterStockMax = this.itemForm.value["maxstock"];
-        
-        this.product.getAll(filters, true, this.products.pageNumber, this.products.limit).subscribe({
+        console.log("filters", filters)
+        this.product.getAll(filters, true, 1, 10).subscribe({
             next: (res) => {
                 this.products.set(res);
             },
@@ -94,7 +96,62 @@ export class ProductComponent implements OnInit{
     }
     
     editProduct(item) {
-        
+        let dialogRef: MatDialogRef<any> = this.dialog.open(
+            RegisteModalComponent,
+            {
+                width: window.innerWidth > 1024 ? "75vh" : "100vh",
+                disableClose: true,
+                data: {
+                    title: "Editar producto",
+                    product: item,
+                    categories: this.categories,
+                    type:  "edit"
+                },
+            }
+        );
+        dialogRef.afterClosed().subscribe((res) => {
+            if (res) {
+                this.product.update(res, item.id)
+                .subscribe({
+                    next: (res) => {
+                        this.message.showNotification("bottom", "right", TypeMessage.Sucess, "Producto actualizado")
+                        this.getProducts();
+                    },
+                    error: (err) => {
+                        this.message.showNotification("bottom", "right", TypeMessage.Error, "Error al actualizar producto")
+                    }
+                }); 
+            }
+        });
+    }
+
+    addProduct() {
+        let dialogRef: MatDialogRef<any> = this.dialog.open(
+            RegisteModalComponent,
+            {
+                width: window.innerWidth > 1024 ? "75vh" : "100vh",
+                disableClose: true,
+                data: {
+                    title: "Agregar producto",
+                    categories: this.categories,
+                    type:  "add"
+                },
+            }
+        );
+        dialogRef.afterClosed().subscribe((res) => {
+            if (res) {
+                this.product.insert(res)
+                .subscribe({
+                    next: (res) => {
+                        this.message.showNotification("bottom", "right", TypeMessage.Sucess, "Producto agregado")
+                        this.getProducts();
+                    },
+                    error: (err) => {
+                        this.message.showNotification("bottom", "right", TypeMessage.Error, "Error al agregar producto")
+                    }
+                }); 
+            }
+        });
     }
 
     deleteProduct(item) {
@@ -111,7 +168,7 @@ export class ProductComponent implements OnInit{
     }
 
     activeProduct(item) {
-        this.product.activar(item.id)
+        this.product.active(item.id)
         .subscribe({
             next: (res) => {
                 this.message.showNotification("bottom", "right", TypeMessage.Sucess, "Producto activado")
@@ -124,29 +181,27 @@ export class ProductComponent implements OnInit{
     }
 
     openFile(item) {
-        let dialogRef: MatDialogRef<any> = this.dialog.open(
-            PopupVehiculoOportunidadPagoComponent,
-            {
-                width: window.innerWidth > 1024 ? "75vh" : "100vh",
-                disableClose: true,
-                data: {
-                title: title,
-                payload: data,
-                busqueda: this.busqueda,
-                esCarrucel: true,
-                },
-            }
-        );
-        dialogRef.afterClosed().subscribe((res) => {
-            if (!res) {
-                // If user press cancel
-                return;
-            }
-        });
+        if(item.hasMultimedia){
+            let dialogRef: MatDialogRef<any> = this.dialog.open(
+                ImageModalComponent,
+                {
+                    width: window.innerWidth > 1024 ? "75vh" : "100vh",
+                    disableClose: true,
+                    data: {
+                        title: "Imágen producto",
+                        productId: item.id
+                    },
+                }
+            );
+        }else{
+            this.message.showNotification("bottom", "right", TypeMessage.Info, "Producto no tiene imagen adjunta")
+        }
     }
     
     setPage(event){
         this.products.pageNumber = event.offset + 1;
+        this.products.limit = 10;
+        this.getProducts();
     }
 
     onKeyPressCodigo(event: KeyboardEvent) {
@@ -162,5 +217,4 @@ export class ProductComponent implements OnInit{
             event.preventDefault();
         }
     }
-
 }
