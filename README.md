@@ -9,4 +9,5 @@ La carpeta www contiene el front (revisar archivo README.md para configuraciones
 
 #La carpeta Apis contiene el back, .NET 8 (revisar que el archivo archivo Config/appsetting.development se encuentre creado en ambiente de pruebas)
   *Los microservicios usan autenticación JWT token para el acceso a las apis de CRUDS
+  *En el script Script BD.sql se ingresar datos base para las tablas de: Category y TransactionType
 
